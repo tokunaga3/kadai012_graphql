@@ -1,11 +1,4 @@
-class SampleSchema < GraphQL::Schema
+SampleSchema = GraphQL::Schema.define do
   mutation(Types::MutationType)
   query(Types::QueryType)
-
-  # Union and Interface Resolution
-  def self.resolve_type(abstract_type, obj, ctx)
-    # TODO: Implement this function
-    # to return the correct object type for `obj`
-    raise(GraphQL::RequiredImplementationMissingError)
-  end
 end

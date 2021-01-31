@@ -9,18 +9,16 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
       blog: Blog.last
     }
-    # binding.irb
-    result = SampleSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
-    render json: result
-  rescue => e
-    raise e unless Rails.env.development?
-    handle_error_in_development e
+    begin
+      result = SampleSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      render json: result
+    rescue Exception => e
+      raise e unless Rails.env.development?
+      handle_error_in_development e
+    end
   end
-
   private
 
   # Handle variables in form data, JSON body, or a blank value
